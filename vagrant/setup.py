@@ -1,8 +1,8 @@
 from setuptools import setup
 
 setup(
-    name='online',
-    packages=["flask_exercise"],
+    name='flask_project',
+    packages=["flask_project"],
     include_package_data=True,
     install_requires=[
         'flask',
