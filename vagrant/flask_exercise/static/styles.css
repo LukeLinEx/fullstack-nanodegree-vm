@@ -1,6 +1,6 @@
 body {
     font-family: sans-serif;
-    background-color: #333333
+    background-color: #777777
 }
 
 h1,
@@ -30,14 +30,33 @@ dt {
     color: #cccccc;
 }
 
+dd {
+    left:50%;
+}
+
 a {
     text-decoration: none;
     color: #ffffcc;
     font-size: .75em;
 }
 
-.pane {
+.pane1 {
+/*
     position: absolute;
+*/
+    left: 10%;
+    border: 2px solid;
+    border-radius: 25px;
+    padding: 1px;
+    margin: 5px;
+    border-color: #999999;
+    background-color: #333333
+}
+
+.pane {
+/*
+    position: absolute;
+*/
     left: 25%;
     border: 2px solid;
     border-radius: 25px;
@@ -67,6 +86,20 @@ a {
 }
 
 .editdeletepane {}
+
+.editmenuitem{
+    color: #ffffcc;
+}
+
+.bottom{
+    left: 80%;
+    color: #000099;
+}
+
+.current{
+    text_align: center;
+    color: #ffffff;
+}
 
 .flash {
     background: #cee5f5;

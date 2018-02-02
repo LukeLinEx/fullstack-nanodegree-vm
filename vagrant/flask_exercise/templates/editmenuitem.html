@@ -1,21 +1,59 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
 </head>
 
 <body>
 
-<h2>{{item.name}}</h2>
+    <div class="header">
+        <h1><p>{{item.name}} <sub><font size=3> from {{restaurant.name}}</font></sub></p></h1>
+    </div>
 
-<form action="{{url_for('editMenuItem', restaurant_id=restaurant.id, menu_id=item.id )}}" method = 'POST'>
-    <h4>{{restaurant.name}}</h4><br>
-    <tag>Enter new name here: </tag><input type='text' size='30' name='name' placeholder="item name"><br>
-    <tag>Enter new price here: </tag><input type='text' size='30' name='price' placeholder="0.00"><br>
-    <tag>Enter new description here: </tag><input type='text' size='90' name='description'><br>
     <br>
-    <input type='submit' value='Update'> <a href="{{url_for('restaurantMenu', restaurant_id=restaurant.id)}}">Cancel</a>
-</form>
+
+    <div class="pane1 col-10" >
+        <p>We are the champion!!</p>
+    </div>
+
+    <br>
+
+    <div class="pane col-6">
+        <!--<form action="{{url_for('editMenuItem', restaurant_id=restaurant.id, menu_id=item.id )}}" method = 'POST'>-->
+            <!--<p class="editmenuitem">Enter new name here: <input type='text' size='30' name='name' placeholder='{{item.name}}'></p>-->
+            <!--<p class="editmenuitem">Enter new price here: <input type='text' size='30' name='price' placeholder="0.00"></p>-->
+            <!--<p class="editmenuitem">Enter new description here: </p><textarea type='text'  rows=5 cols=40 name='description'></textarea><br>-->
+            <!--<br>-->
+            <!--<div>-->
+                <!--<input class="bottom" type='submit' value='Update'> <a class="bottom" href="{{url_for('restaurantMenu', restaurant_id=restaurant.id)}}">Cancel</a>-->
+            <!--</div>-->
+        <!--</form>-->
+        <form action="{{url_for('editMenuItem', restaurant_id=restaurant.id, menu_id=item.id )}}" method="POST" class=add-entry>
+            <dl>
+                <dt>Enter new name here:
+                <dd><input type='text' size='30' name='name' placeholder='{{item.name}}'>
+                <dt>Enter new price here:
+                <dd><input type='text' size='30' name='price' placeholder="0.00">
+                <dt>Enter new description here:
+                <dd><textarea type='text'  rows=5 cols=40 name='description'></textarea>
+                <dd><input type=submit value=Share>
+            </dl>
+        </form>
+    </div>
+
+    <br>
+
+    <div>
+        <select>
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+        </select>
+    </div>
+
 </body>
 
 </html>
+
