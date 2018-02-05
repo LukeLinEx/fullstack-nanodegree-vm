@@ -1,0 +1,10 @@
+  File "webserver.py", line 21
+    message += "<html><body>&#161Hola <a href="/hello">Back to Hello</a></body></html>"
+                                                                                      ^
+SyntaxError: invalid syntax
+10.0.2.2 - - [28/Jan/2018 15:51:59] "GET /hello HTTP/1.1" 200 -
+10.0.2.2 - - [28/Jan/2018 15:51:59] "GET /hello HTTP/1.1" 200 -
+10.0.2.2 - - [28/Jan/2018 15:52:29] "GET /hola HTTP/1.1" 200 -
+10.0.2.2 - - [28/Jan/2018 15:52:35] "GET /hello HTTP/1.1" 200 -
+10.0.2.2 - - [28/Jan/2018 15:54:11] "GET /hello HTTP/1.1" 200 -
+10.0.2.2 - - [28/Jan/2018 15:54:17] "GET /hola HTTP/1.1" 200 -

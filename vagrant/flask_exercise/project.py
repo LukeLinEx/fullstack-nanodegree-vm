@@ -1,7 +1,14 @@
 from db_io import *
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+
+from flask_wtf import Form
+from wtforms.fields.html5 import DateField
+
+
 app = Flask(__name__)
 
+class ExampleForm(Form):
+    dt = DateField('DatePicker', format='%Y-%m-%d')
 
 @app.route('/')
 @app.route('/restaurants/')
@@ -25,6 +32,35 @@ def newMenuItem(restaurant_id):
         return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
     else:
         return render_template('newmenuitem.html', restaurant_id=restaurant_id)
+
+
+@app.route('/test/<int:restaurant_id>/<int:menu_id>/edit/', methods=['GET', 'POST'])
+def testMenuItem(restaurant_id, menu_id):
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    item = session.query(MenuItem).filter_by(restaurant_id=restaurant.id, id=menu_id).one()
+
+    form = ExampleForm()
+    print(dict(request.form))
+    # for met in request.form:
+    #     print(met)
+
+    if request.method == "POST":
+        print(1)
+        if request.form["name"]:
+            item.name = request.form["name"]
+        if request.form["price"]:
+            item.price = "${}".format(request.form["price"])
+        if request.form["description"]:
+            item.description = request.form["description"]
+        print(2)
+        session.add(item)
+        print(3)
+        session.commit()
+        print(4)
+        flash("An item was editted!!")
+        return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
+    else:
+        return render_template('testmenuitem.html', restaurant=restaurant, item=item, form=form)
 
 
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/edit/', methods=['GET', 'POST'])

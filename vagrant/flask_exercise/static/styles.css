@@ -104,3 +104,9 @@ a {
 .flash {
     background: #cee5f5;
 }
+
+.sds{
+    display: inline-block;
+    position: relative;
+    text-align:center;
+}
