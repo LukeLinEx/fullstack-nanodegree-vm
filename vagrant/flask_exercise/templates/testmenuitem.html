@@ -31,6 +31,10 @@
             <dl>
                 <dt>Enter new name here:
                 <dd><input type='text' size='30' name='name' placeholder='{{item.name}}'>
+                <dt>Choose a date:
+                <dd>
+                    {{ form.dt(class='datepicker') }}
+                    {{ form.hidden_tag() }}
                 <dt>Price:
                 <dd><input type='text' size='30' name='price' placeholder="0.00">
                 <dt>Enter new test here:
