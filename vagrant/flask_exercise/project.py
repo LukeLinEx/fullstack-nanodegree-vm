@@ -19,6 +19,30 @@ def restaurantMenu(restaurant_id=1):
     return render_template('menu.html', restaurant=restaurant, items=items)
 
 
+
+@app.route('/map', methods=['GET', 'POST'])
+def googleMap():
+    if request.method == "POST":
+        return render_template('googlemapapi.html')
+    else:
+        restaurant_id = 1
+        restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+        items = session.query(MenuItem).filter_by(restaurant_id=restaurant.id).all()
+
+        lst = ["name", "description"]
+        items = [
+            {key: item.__dict__[key] for key in item.__dict__ if key in lst} for item in items
+        ]
+
+        return render_template('googlemapapi.html', items=items)
+
+
+
+
+
+
+
+
 @app.route('/restaurants/<int:restaurant_id>/new/', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
     if request.method == "POST":
