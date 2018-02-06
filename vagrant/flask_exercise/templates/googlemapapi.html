@@ -15,6 +15,13 @@
     </style>
   </head>
   <body>
+    <div class="options-box">
+      <h1>Find Your New NYC Home</h1>
+      <div>
+        <input id="show-listings" type="button" value="Show Listings">
+        <input id="hide-listings" type="button" value="Hide Listings">
+      </div>
+    </div>
     <div id="map"></div>
 
   <script type="text/javascript">
@@ -22,6 +29,7 @@
       debug: {% if env == 'development' %}true{% else %}false{% endif %},
       items: {{items | tojson}}
       //items: JSON.parse('{{items | tojson}}')
+
     }
   </script>
 
@@ -31,7 +39,7 @@
     </script>
 
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVClCN5Mh_V_NJZsYSD3QEb71Ex-XBn1E&v=3&callback=initMap">
+        src={{"https://maps.googleapis.com/maps/api/js?key={}&v=3&callback=initMap".format(key)}}>
     </script>
 
   </body>

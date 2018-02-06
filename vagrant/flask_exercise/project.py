@@ -1,3 +1,4 @@
+from os.path import expanduser
 from db_io import *
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 
@@ -6,6 +7,17 @@ from wtforms.fields.html5 import DateField
 
 
 app = Flask(__name__)
+
+
+def get_googlemap_key():
+    key_f = expanduser("~/.credential/googlemapapi")
+    with open(key_f) as f:
+        key = f.read()
+    return key
+
+
+key = get_googlemap_key().strip()
+
 
 class ExampleForm(Form):
     dt = DateField('DatePicker', format='%Y-%m-%d')
@@ -23,7 +35,7 @@ def restaurantMenu(restaurant_id=1):
 @app.route('/map', methods=['GET', 'POST'])
 def googleMap():
     if request.method == "POST":
-        return render_template('googlemapapi.html')
+        return render_template('googlemapapi.html', key=key)
     else:
         restaurant_id = 1
         restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
@@ -34,7 +46,22 @@ def googleMap():
             {key: item.__dict__[key] for key in item.__dict__ if key in lst} for item in items
         ]
 
-        return render_template('googlemapapi.html', items=items)
+        return render_template('googlemapapi.html', items=items, key=key)
+
+
+
+
+@app.route('/mapone', methods=['GET', 'POST'])
+def googleMapOne():
+    if request.method == "POST":
+        return render_template('googlemapapi_allinone.html', key=key)
+    else:
+        restaurant_id = 1
+        restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+        items = session.query(MenuItem).filter_by(restaurant_id=restaurant.id).all()
+
+        lst = ["name", "description"]
+        return render_template('googlemapapi_allinone.html', key=key)
 
 
 
@@ -64,23 +91,18 @@ def testMenuItem(restaurant_id, menu_id):
     item = session.query(MenuItem).filter_by(restaurant_id=restaurant.id, id=menu_id).one()
 
     form = ExampleForm()
-    print(dict(request.form))
     # for met in request.form:
     #     print(met)
 
     if request.method == "POST":
-        print(1)
         if request.form["name"]:
             item.name = request.form["name"]
         if request.form["price"]:
             item.price = "${}".format(request.form["price"])
         if request.form["description"]:
             item.description = request.form["description"]
-        print(2)
         session.add(item)
-        print(3)
         session.commit()
-        print(4)
         flash("An item was editted!!")
         return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
     else:
