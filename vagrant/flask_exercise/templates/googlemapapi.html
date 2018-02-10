@@ -1,18 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-      html,
-      body {
-        font-family: Arial, sans-serif;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-    </style>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='googlemapstyles.css') }}">
   </head>
   <body>
     <div class="options-box">
@@ -28,7 +17,7 @@
     window.appConfig = {
       debug: {% if env == 'development' %}true{% else %}false{% endif %},
       items: {{items | tojson}}
-      //items: JSON.parse('{{items | tojson}}')
+      //items: JSON.parse('{{items|tojson}}')
 
     }
   </script>
